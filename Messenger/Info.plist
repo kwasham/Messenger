@@ -41,5 +41,17 @@
 		<string>UIInterfaceOrientationLandscapeLeft</string>
 		<string>UIInterfaceOrientationLandscapeRight</string>
 	</array>
+	<key>NSCameraUsageDescription</key>
+	<string>Messenger needs to use your Camera</string>
+	<key>NSAppleMusicUsageDescription</key>
+	<string>Messenger needs to use your Media Library</string>
+	<key>NSPhotoLibraryUsageDescription</key>
+	<string>Messenger needs to use your Photo Library</string>
+	<key>NSMicrophoneUsageDescription</key>
+	<string>Messenger needs to use your Microphone</string>
+	<key>NSLocationWhenInUseUsageDescription</key>
+	<string>Messenger needs to use your Location</string>
+	<key>NSContactsUsageDescription</key>
+	<string>Messenger needs to use your Contacts</string>
 </dict>
 </plist>
