@@ -18,11 +18,11 @@
 		1621C51C222F3978000F04A7 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1621C51A222F3978000F04A7 /* LaunchScreen.storyboard */; };
 		1621C524222F4509000F04A7 /* WelcomeVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1621C523222F4509000F04A7 /* WelcomeVC.swift */; };
 		1621C526222F5E91000F04A7 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 1621C525222F5E91000F04A7 /* GoogleService-Info.plist */; };
-		1621C52A222F6339000F04A7 /* FUser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1621C529222F6339000F04A7 /* FUser.swift */; };
 		1621C52C222F63CD000F04A7 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1621C52B222F63CD000F04A7 /* Constants.swift */; };
 		1621C52E222F6766000F04A7 /* FCollectionReference.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1621C52D222F6766000F04A7 /* FCollectionReference.swift */; };
 		1621C530222F684A000F04A7 /* HelperFunctions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1621C52F222F684A000F04A7 /* HelperFunctions.swift */; };
 		1621C53222308AAB000F04A7 /* FinishRegistrationVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1621C53122308AAB000F04A7 /* FinishRegistrationVC.swift */; };
+		162D48AC22458A2000B356B3 /* FUser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 162D48AB22458A2000B356B3 /* FUser.swift */; };
 		167BF9D622355A7100EB5A62 /* Recent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 167BF9D522355A7100EB5A62 /* Recent.swift */; };
 		167BF9D822358F6E00EB5A62 /* RecentChatsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 167BF9D722358F6E00EB5A62 /* RecentChatsTableViewCell.swift */; };
 		16AA2EC82231F5A5006BF779 /* SettingsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16AA2EC72231F5A5006BF779 /* SettingsTableViewController.swift */; };
@@ -48,11 +48,11 @@
 		1621C51D222F3978000F04A7 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		1621C523222F4509000F04A7 /* WelcomeVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WelcomeVC.swift; sourceTree = "<group>"; };
 		1621C525222F5E91000F04A7 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
-		1621C529222F6339000F04A7 /* FUser.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = FUser.swift; path = Messenger/Classes/FUser.swift; sourceTree = SOURCE_ROOT; };
 		1621C52B222F63CD000F04A7 /* Constants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Constants.swift; path = Messenger/Helpers/Constants.swift; sourceTree = SOURCE_ROOT; };
 		1621C52D222F6766000F04A7 /* FCollectionReference.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = FCollectionReference.swift; path = Messenger/Helpers/FCollectionReference.swift; sourceTree = SOURCE_ROOT; };
 		1621C52F222F684A000F04A7 /* HelperFunctions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = HelperFunctions.swift; path = Messenger/Helpers/HelperFunctions.swift; sourceTree = SOURCE_ROOT; };
 		1621C53122308AAB000F04A7 /* FinishRegistrationVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FinishRegistrationVC.swift; sourceTree = "<group>"; };
+		162D48AB22458A2000B356B3 /* FUser.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FUser.swift; sourceTree = "<group>"; };
 		167BF9D522355A7100EB5A62 /* Recent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Recent.swift; sourceTree = "<group>"; };
 		167BF9D722358F6E00EB5A62 /* RecentChatsTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecentChatsTableViewCell.swift; sourceTree = "<group>"; };
 		16AA2EC72231F5A5006BF779 /* SettingsTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsTableViewController.swift; sourceTree = "<group>"; };
@@ -159,7 +159,7 @@
 		1621C53422308C09000F04A7 /* Classes */ = {
 			isa = PBXGroup;
 			children = (
-				1621C529222F6339000F04A7 /* FUser.swift */,
+				162D48AB22458A2000B356B3 /* FUser.swift */,
 				167BF9D522355A7100EB5A62 /* Recent.swift */,
 				16048EBD2237354A00EB4675 /* OutgoingMessages.swift */,
 				1601009A2237D57600FDB506 /* incomingMessages.swift */,
@@ -350,9 +350,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				167BF9D822358F6E00EB5A62 /* RecentChatsTableViewCell.swift in Sources */,
-				1621C52A222F6339000F04A7 /* FUser.swift in Sources */,
 				167BF9D622355A7100EB5A62 /* Recent.swift in Sources */,
 				16AA2ECA22321402006BF779 /* UserTableViewCell.swift in Sources */,
+				162D48AC22458A2000B356B3 /* FUser.swift in Sources */,
 				16E9969B22446723005EF28A /* VideoMessage.swift in Sources */,
 				161547C52234359B009CAB48 /* ProfileViewTableViewController.swift in Sources */,
 				16048EBE2237354A00EB4675 /* OutgoingMessages.swift in Sources */,
