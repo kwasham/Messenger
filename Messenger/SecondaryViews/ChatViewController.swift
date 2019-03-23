@@ -39,6 +39,7 @@ class ChatViewController: JSQMessagesViewController, UIImagePickerControllerDele
     var loadOld = false
     var loadedMessagesCount = 0
     
+    var typingCounter = 0
     var messages: [JSQMessage] = []
     var objectMessages: [NSDictionary] = []
     var loadedMessages: [NSDictionary] = []
@@ -85,6 +86,8 @@ class ChatViewController: JSQMessagesViewController, UIImagePickerControllerDele
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        createTypingObserver()
 
         navigationItem.largeTitleDisplayMode = .never
         
@@ -683,6 +686,8 @@ class ChatViewController: JSQMessagesViewController, UIImagePickerControllerDele
     //MARK: IBActions
     
     @objc func backAction() {
+        
+        removeListeners()
         self.navigationController?.popViewController(animated: true)
         
     }
@@ -704,6 +709,74 @@ class ChatViewController: JSQMessagesViewController, UIImagePickerControllerDele
         
         
     }
+    
+    //MARK: Typing Indicator
+    
+    func createTypingObserver() {
+        
+        typingListener = reference(.Typing).document(chatRoomId).addSnapshotListener({ (snapshot, error) in
+            guard let snapshot = snapshot else { return }
+            
+            if snapshot.exists {
+                
+                for data in snapshot.data()! {
+                    if data.key != FUser.currentId() {
+                        
+                        let typing = data.value as! Bool
+                        self.showTypingIndicator = typing
+                        
+                        if typing {
+                            self.scrollToBottom(animated: true)
+                        }
+                    }
+                    
+                }
+                
+            } else {
+                reference(.Typing).document(self.chatRoomId).setData([FUser.currentId() : false])
+            }
+            
+        })
+        
+    }
+    
+    func typingCounterStart() {
+        
+        typingCounter += 1
+        typingCounterSave(typing: true)
+        
+        self.perform(#selector(self.typingCounterStop), with: nil, afterDelay: 2.0)
+        
+    }
+    
+    
+    @objc func typingCounterStop() {
+        
+        
+        typingCounter -= 1
+        
+        if typingCounter == 0 {
+            typingCounterSave(typing: false)
+        }
+    }
+    
+    
+    func typingCounterSave(typing: Bool) {
+    
+        reference(.Typing).document(chatRoomId).updateData([FUser.currentId() : typing])
+    
+    }
+    
+    
+    //MARK: UITextViewDelegate
+    
+    override func textView(_ textView: UITextView, shouldChangeTextIn range: NSRange, replacementText text: String) -> Bool {
+        
+        
+        typingCounterStart()
+        return true
+    }
+    
     
     
     //MARK: Custom Send Button
@@ -854,6 +927,19 @@ class ChatViewController: JSQMessagesViewController, UIImagePickerControllerDele
             return true
         }
         
+    }
+    
+    
+    func removeListeners() {
+        if typingListener != nil {
+            typingListener!.remove()
+        }
+        if newChatListener != nil {
+            newChatListener!.remove()
+        }
+        if updateListener != nil {
+            updateListener!.remove()
+        }
     }
     
     
