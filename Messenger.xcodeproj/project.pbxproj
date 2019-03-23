@@ -11,6 +11,7 @@
 		1601009B2237D57600FDB506 /* incomingMessages.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1601009A2237D57600FDB506 /* incomingMessages.swift */; };
 		16048EBE2237354A00EB4675 /* OutgoingMessages.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16048EBD2237354A00EB4675 /* OutgoingMessages.swift */; };
 		1605BA0822329C9B002A7477 /* ChatsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1605BA0722329C9B002A7477 /* ChatsViewController.swift */; };
+		160BE13D224683B300203396 /* MapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 160BE13C224683B300203396 /* MapViewController.swift */; };
 		161547C52234359B009CAB48 /* ProfileViewTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 161547C42234359B009CAB48 /* ProfileViewTableViewController.swift */; };
 		1621C512222F3978000F04A7 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1621C511222F3978000F04A7 /* AppDelegate.swift */; };
 		1621C517222F3978000F04A7 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1621C515222F3978000F04A7 /* Main.storyboard */; };
@@ -40,6 +41,7 @@
 		1601009A2237D57600FDB506 /* incomingMessages.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = incomingMessages.swift; sourceTree = "<group>"; };
 		16048EBD2237354A00EB4675 /* OutgoingMessages.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OutgoingMessages.swift; sourceTree = "<group>"; };
 		1605BA0722329C9B002A7477 /* ChatsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatsViewController.swift; sourceTree = "<group>"; };
+		160BE13C224683B300203396 /* MapViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapViewController.swift; sourceTree = "<group>"; };
 		161547C42234359B009CAB48 /* ProfileViewTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewTableViewController.swift; sourceTree = "<group>"; };
 		1621C50E222F3978000F04A7 /* Messenger.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Messenger.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		1621C511222F3978000F04A7 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -106,6 +108,7 @@
 				16AA2ECC22321F1F006BF779 /* UsersTableViewController.swift */,
 				16FCA865223680DA0035B90B /* ChatViewController.swift */,
 				161547C42234359B009CAB48 /* ProfileViewTableViewController.swift */,
+				160BE13C224683B300203396 /* MapViewController.swift */,
 			);
 			path = SecondaryViews;
 			sourceTree = "<group>";
@@ -361,6 +364,7 @@
 				16048EBE2237354A00EB4675 /* OutgoingMessages.swift in Sources */,
 				1621C512222F3978000F04A7 /* AppDelegate.swift in Sources */,
 				1621C53222308AAB000F04A7 /* FinishRegistrationVC.swift in Sources */,
+				160BE13D224683B300203396 /* MapViewController.swift in Sources */,
 				1621C52E222F6766000F04A7 /* FCollectionReference.swift in Sources */,
 				16AA2EC82231F5A5006BF779 /* SettingsTableViewController.swift in Sources */,
 				16E9969322432BC9005EF28A /* Downloader.swift in Sources */,

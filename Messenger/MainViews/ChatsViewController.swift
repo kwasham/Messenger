@@ -184,9 +184,15 @@ class ChatsViewController: UIViewController, UITableViewDelegate, UITableViewDat
                 let sorted = ((dictionaryFromSnapshots(snapshots: snapshot.documents)) as NSArray).sortedArray(using: [NSSortDescriptor(key: kDATE, ascending: false)]) as! [NSDictionary]
                 
                 for recent in sorted {
+                    
                     if recent[kLASTMESSAGE] as! String != "" && recent[kCHATROOMID] != nil && recent[kRECENTID] != nil {
+                        
                         self.recentChats.append(recent)
                     }
+                    
+                    reference(.Recent).whereField(kCHATROOMID, isEqualTo: recent[kCHATROOMID] as! String).getDocuments(completion: { (snapshot, error) in
+                        
+                    })
                 }
                 
                 self.tableView.reloadData()

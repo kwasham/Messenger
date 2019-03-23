@@ -17,6 +17,8 @@ import FirebaseFirestore
 
 class ChatViewController: JSQMessagesViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate, IQAudioRecorderViewControllerDelegate {
     
+    let appDelegate = UIApplication.shared.delegate as! AppDelegate
+    
     var chatRoomId: String!
     var memberIds: [String]!
     var membersToPush: [String]!
@@ -231,7 +233,11 @@ class ChatViewController: JSQMessagesViewController, UIImagePickerControllerDele
         }
         
         let shareLocation = UIAlertAction(title: "Share Location", style: .default) { (action) in
-            print("Share Location")
+            
+            if self.haveAccessToUserLocation() {
+                self.sendMessages(text: nil, date: Date(), picture: nil, location: kLOCATION, video: nil, audio: nil)
+            }
+            
         }
         
         let cancelAction = UIAlertAction(title: "Cancel", style: .cancel) { (action) in
@@ -307,9 +313,18 @@ class ChatViewController: JSQMessagesViewController, UIImagePickerControllerDele
             
             self.present(browser!, animated: true, completion: nil)
         case kLOCATION:
-            print("Location was tapped")
+            
+            let message = messages[indexPath.row]
+            let mediaItem = message.media as! JSQLocationMediaItem
+            
+            let mapView = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "MapViewController") as! MapViewController
+            
+            mapView.location = mediaItem.location
+            
+            self.navigationController?.pushViewController(mapView, animated: true)
+            
         case kVIDEO:
-            print("Video was Tapped")
+            
             let message = messages[indexPath.row]
             let mediaItem = message.media as! VideoMessage
             
@@ -415,6 +430,18 @@ class ChatViewController: JSQMessagesViewController, UIImagePickerControllerDele
             return
         }
         
+        //Send Location Message
+        
+        if location != nil {
+            
+            let lat: NSNumber = NSNumber(value: appDelegate.coordinates!.latitude)
+            let lon: NSNumber = NSNumber(value: appDelegate.coordinates!.longitude)
+            
+            let text = "[\(kLOCATION)]"
+            
+            outgoingMessage = OutgoingMessage(message: text, latitude: lat, longitude: lon, senderId: currentUser.objectId, senderName: currentUser.firstname, date: date, status: kDELIVERED, type: kLOCATION)
+        }
+        
         
         
         JSQSystemSoundPlayer.jsq_playMessageSentSound()
@@ -428,6 +455,25 @@ class ChatViewController: JSQMessagesViewController, UIImagePickerControllerDele
     //MARK: LoadMessages
     
     func loadMessages() {
+        
+        //to update message status
+        updateListener = reference(.Message).document(FUser.currentId()).collection(chatRoomId).addSnapshotListener({ (snapshot, error) in
+            
+            guard let snapshot = snapshot else { return }
+            
+            if !snapshot.isEmpty {
+                snapshot.documentChanges.forEach({ (diff) in
+                    
+                    if diff.type == .modified {
+                        
+                        self.updateMessage(messageDictionary: diff.document.data() as NSDictionary)
+                        
+                    }
+                    
+                })
+            }
+            
+        })
         
         //Get last 11 messages
         reference(.Message).document(FUser.currentId()).collection(chatRoomId).order(by: kDATE, descending: true).limit(to: 11).getDocuments { (snapshot, error) in
@@ -562,7 +608,7 @@ class ChatViewController: JSQMessagesViewController, UIImagePickerControllerDele
         
         if (messageDictionary[kSENDERID] as! String) != FUser.currentId() {
             
-            //update message status
+            OutgoingMessage.updateMessage(withId: messageDictionary[kMESSAGEID] as! String, chatRoomId: chatRoomId, memberIds: memberIds)
         }
         
         let message = incomingMessage.createMessage(messageDictionary: messageDictionary, chatRoomId: chatRoomId)
@@ -577,6 +623,21 @@ class ChatViewController: JSQMessagesViewController, UIImagePickerControllerDele
         return isIncoming(messageDictionary: messageDictionary)
         
     }
+    
+    
+    func updateMessage(messageDictionary: NSDictionary) {
+        
+        for index in 0 ..< objectMessages.count {
+            
+            let temp = objectMessages[index]
+            
+            if messageDictionary[kMESSAGEID] as! String == temp[kMESSAGEID] as! String {
+                objectMessages[index] = messageDictionary
+                self.collectionView!.reloadData()
+            }
+        }
+    }
+    
     
     
     //MARK: LoadMoreMessages
@@ -744,7 +805,20 @@ class ChatViewController: JSQMessagesViewController, UIImagePickerControllerDele
         
     }
     
+    //MARK: Location Access
     
+    func haveAccessToUserLocation() -> Bool {
+        
+        if appDelegate.locationManager != nil {
+            return true
+        } else {
+            
+            ProgressHUD.showError("Please give access to location in Settings")
+            return false
+            
+        }
+        
+    }
     
     
     
