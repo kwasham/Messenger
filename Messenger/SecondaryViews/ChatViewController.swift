@@ -535,7 +535,7 @@ class ChatViewController: JSQMessagesViewController, UIImagePickerControllerDele
             
             self.initialLoadComplete = true
             
-            //get picture messages
+            self.getPictureMessages()
             
             self.getOldMessagesInBackground()
             
@@ -569,7 +569,7 @@ class ChatViewController: JSQMessagesViewController, UIImagePickerControllerDele
                                 
                                 //this is for picture message
                                 if type as! String == kPICTURE {
-                                    //add to pictures
+                                    self.addNewPictureMessageLink(link: item[kPICTURE] as! String)
                                 }
                                 
                                 if self.insertInitialLoadMessages(messageDictionary: item) {
@@ -606,7 +606,7 @@ class ChatViewController: JSQMessagesViewController, UIImagePickerControllerDele
                 
                 self.loadedMessages = self.removeBadMessages(allMessages: sorted) + self.loadedMessages
                 
-                // get the picture messages
+                self.getPictureMessages()
                 
                 self.maxMessagesNumber = self.loadedMessages.count - self.loadedMessagesCount - 1
                 self.minMessagesNumber = self.maxMessagesNumber - kNUMBEROFMESSAGES
@@ -730,7 +730,11 @@ class ChatViewController: JSQMessagesViewController, UIImagePickerControllerDele
     }
     
     @objc func infoButtonPressed() {
-        print("show image messages")
+        let mediaVC = UIStoryboard.init(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "mediaView") as! PictureCollectionViewController
+        
+        mediaVC.allImageLinks = allPictureMessages
+        
+        self.navigationController?.pushViewController(mediaVC, animated: true)
     }
     
     @objc func showGroup() {
@@ -1013,6 +1017,37 @@ class ChatViewController: JSQMessagesViewController, UIImagePickerControllerDele
     
     //MARK: Helper Functions
     
+    
+    func addNewPictureMessageLink(link: String) {
+        allPictureMessages.append(link)
+    }
+    
+    
+    func getPictureMessages() {
+        
+        allPictureMessages = []
+        
+        for message in loadedMessages {
+            
+            if message[kTYPE] as! String == kPICTURE {
+                allPictureMessages.append(message[kPICTURE] as! String)
+            }
+        }
+    }
+    
+    
+    func readTimeFrom(dateString: String) -> String {
+        
+        let date = dateFormatter().date(from: dateString)
+        
+        let currentDateFormat = dateFormatter()
+        currentDateFormat.dateFormat = "HH:mm"
+        
+        return currentDateFormat.string(from: date!)
+        
+    }
+    
+    
     func removeBadMessages(allMessages: [NSDictionary]) -> [NSDictionary] {
         var tempMessages = allMessages
         
@@ -1056,18 +1091,6 @@ class ChatViewController: JSQMessagesViewController, UIImagePickerControllerDele
         if updateListener != nil {
             updateListener!.remove()
         }
-    }
-    
-    
-    func readTimeFrom(dateString: String) -> String {
-        
-        let date = dateFormatter().date(from: dateString)
-        
-        let currentDateFormat = dateFormatter()
-        currentDateFormat.dateFormat = "HH:mm"
-        
-        return currentDateFormat.string(from: date!)
-        
     }
     
 }
