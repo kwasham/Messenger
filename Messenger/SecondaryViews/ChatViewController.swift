@@ -17,6 +17,8 @@ import FirebaseFirestore
 
 class ChatViewController: JSQMessagesViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate, IQAudioRecorderViewControllerDelegate {
     
+    let appDelegate = UIApplication.shared.delegate as! AppDelegate
+    
     var chatRoomId: String!
     var memberIds: [String]!
     var membersToPush: [String]!
@@ -37,6 +39,7 @@ class ChatViewController: JSQMessagesViewController, UIImagePickerControllerDele
     var loadOld = false
     var loadedMessagesCount = 0
     
+    var typingCounter = 0
     var messages: [JSQMessage] = []
     var objectMessages: [NSDictionary] = []
     var loadedMessages: [NSDictionary] = []
@@ -83,6 +86,8 @@ class ChatViewController: JSQMessagesViewController, UIImagePickerControllerDele
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        createTypingObserver()
 
         navigationItem.largeTitleDisplayMode = .never
         
@@ -231,7 +236,11 @@ class ChatViewController: JSQMessagesViewController, UIImagePickerControllerDele
         }
         
         let shareLocation = UIAlertAction(title: "Share Location", style: .default) { (action) in
-            print("Share Location")
+            
+            if self.haveAccessToUserLocation() {
+                self.sendMessages(text: nil, date: Date(), picture: nil, location: kLOCATION, video: nil, audio: nil)
+            }
+            
         }
         
         let cancelAction = UIAlertAction(title: "Cancel", style: .cancel) { (action) in
@@ -307,9 +316,18 @@ class ChatViewController: JSQMessagesViewController, UIImagePickerControllerDele
             
             self.present(browser!, animated: true, completion: nil)
         case kLOCATION:
-            print("Location was tapped")
+            
+            let message = messages[indexPath.row]
+            let mediaItem = message.media as! JSQLocationMediaItem
+            
+            let mapView = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "MapViewController") as! MapViewController
+            
+            mapView.location = mediaItem.location
+            
+            self.navigationController?.pushViewController(mapView, animated: true)
+            
         case kVIDEO:
-            print("Video was Tapped")
+            
             let message = messages[indexPath.row]
             let mediaItem = message.media as! VideoMessage
             
@@ -415,6 +433,18 @@ class ChatViewController: JSQMessagesViewController, UIImagePickerControllerDele
             return
         }
         
+        //Send Location Message
+        
+        if location != nil {
+            
+            let lat: NSNumber = NSNumber(value: appDelegate.coordinates!.latitude)
+            let lon: NSNumber = NSNumber(value: appDelegate.coordinates!.longitude)
+            
+            let text = "[\(kLOCATION)]"
+            
+            outgoingMessage = OutgoingMessage(message: text, latitude: lat, longitude: lon, senderId: currentUser.objectId, senderName: currentUser.firstname, date: date, status: kDELIVERED, type: kLOCATION)
+        }
+        
         
         
         JSQSystemSoundPlayer.jsq_playMessageSentSound()
@@ -428,6 +458,25 @@ class ChatViewController: JSQMessagesViewController, UIImagePickerControllerDele
     //MARK: LoadMessages
     
     func loadMessages() {
+        
+        //to update message status
+        updateListener = reference(.Message).document(FUser.currentId()).collection(chatRoomId).addSnapshotListener({ (snapshot, error) in
+            
+            guard let snapshot = snapshot else { return }
+            
+            if !snapshot.isEmpty {
+                snapshot.documentChanges.forEach({ (diff) in
+                    
+                    if diff.type == .modified {
+                        
+                        self.updateMessage(messageDictionary: diff.document.data() as NSDictionary)
+                        
+                    }
+                    
+                })
+            }
+            
+        })
         
         //Get last 11 messages
         reference(.Message).document(FUser.currentId()).collection(chatRoomId).order(by: kDATE, descending: true).limit(to: 11).getDocuments { (snapshot, error) in
@@ -562,7 +611,7 @@ class ChatViewController: JSQMessagesViewController, UIImagePickerControllerDele
         
         if (messageDictionary[kSENDERID] as! String) != FUser.currentId() {
             
-            //update message status
+            OutgoingMessage.updateMessage(withId: messageDictionary[kMESSAGEID] as! String, chatRoomId: chatRoomId, memberIds: memberIds)
         }
         
         let message = incomingMessage.createMessage(messageDictionary: messageDictionary, chatRoomId: chatRoomId)
@@ -577,6 +626,21 @@ class ChatViewController: JSQMessagesViewController, UIImagePickerControllerDele
         return isIncoming(messageDictionary: messageDictionary)
         
     }
+    
+    
+    func updateMessage(messageDictionary: NSDictionary) {
+        
+        for index in 0 ..< objectMessages.count {
+            
+            let temp = objectMessages[index]
+            
+            if messageDictionary[kMESSAGEID] as! String == temp[kMESSAGEID] as! String {
+                objectMessages[index] = messageDictionary
+                self.collectionView!.reloadData()
+            }
+        }
+    }
+    
     
     
     //MARK: LoadMoreMessages
@@ -622,6 +686,8 @@ class ChatViewController: JSQMessagesViewController, UIImagePickerControllerDele
     //MARK: IBActions
     
     @objc func backAction() {
+        
+        removeListeners()
         self.navigationController?.popViewController(animated: true)
         
     }
@@ -643,6 +709,74 @@ class ChatViewController: JSQMessagesViewController, UIImagePickerControllerDele
         
         
     }
+    
+    //MARK: Typing Indicator
+    
+    func createTypingObserver() {
+        
+        typingListener = reference(.Typing).document(chatRoomId).addSnapshotListener({ (snapshot, error) in
+            guard let snapshot = snapshot else { return }
+            
+            if snapshot.exists {
+                
+                for data in snapshot.data()! {
+                    if data.key != FUser.currentId() {
+                        
+                        let typing = data.value as! Bool
+                        self.showTypingIndicator = typing
+                        
+                        if typing {
+                            self.scrollToBottom(animated: true)
+                        }
+                    }
+                    
+                }
+                
+            } else {
+                reference(.Typing).document(self.chatRoomId).setData([FUser.currentId() : false])
+            }
+            
+        })
+        
+    }
+    
+    func typingCounterStart() {
+        
+        typingCounter += 1
+        typingCounterSave(typing: true)
+        
+        self.perform(#selector(self.typingCounterStop), with: nil, afterDelay: 2.0)
+        
+    }
+    
+    
+    @objc func typingCounterStop() {
+        
+        
+        typingCounter -= 1
+        
+        if typingCounter == 0 {
+            typingCounterSave(typing: false)
+        }
+    }
+    
+    
+    func typingCounterSave(typing: Bool) {
+    
+        reference(.Typing).document(chatRoomId).updateData([FUser.currentId() : typing])
+    
+    }
+    
+    
+    //MARK: UITextViewDelegate
+    
+    override func textView(_ textView: UITextView, shouldChangeTextIn range: NSRange, replacementText text: String) -> Bool {
+        
+        
+        typingCounterStart()
+        return true
+    }
+    
     
     
     //MARK: Custom Send Button
@@ -744,7 +878,20 @@ class ChatViewController: JSQMessagesViewController, UIImagePickerControllerDele
         
     }
     
+    //MARK: Location Access
     
+    func haveAccessToUserLocation() -> Bool {
+        
+        if appDelegate.locationManager != nil {
+            return true
+        } else {
+            
+            ProgressHUD.showError("Please give access to location in Settings")
+            return false
+            
+        }
+        
+    }
     
     
     
@@ -780,6 +927,19 @@ class ChatViewController: JSQMessagesViewController, UIImagePickerControllerDele
             return true
         }
         
+    }
+    
+    
+    func removeListeners() {
+        if typingListener != nil {
+            typingListener!.remove()
+        }
+        if newChatListener != nil {
+            newChatListener!.remove()
+        }
+        if updateListener != nil {
+            updateListener!.remove()
+        }
     }
     
     
