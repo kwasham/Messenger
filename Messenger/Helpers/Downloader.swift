@@ -70,7 +70,6 @@ func downloadImage(imageUrl: String, completion: @escaping(_ image: UIImage?) ->
     let imageURL = NSURL(string: imageUrl)
     
     let imageFileName = (imageUrl.components(separatedBy: "%").last!).components(separatedBy: "?").first!
-    print("file name \(imageFileName)")
     
     if fileExistsAtPath(path: imageFileName) {
         
@@ -159,7 +158,6 @@ func downloadVideo(videoUrl: String, completion: @escaping(_ isReadyToPlay: Bool
     let videoURL = NSURL(string: videoUrl)
     
     let videoFileName = (videoUrl.components(separatedBy: "%").last!).components(separatedBy: "?").first!
-    print("file name \(videoFileName)")
     
     if fileExistsAtPath(path: videoFileName) {
         
@@ -240,6 +238,51 @@ func uploadAudio(audioPath: String, chatRoomId: String, view: UIView, completion
     task.observe(StorageTaskStatus.progress) { (snapshot) in
         
         progressHUD.progress = Float((snapshot.progress?.completedUnitCount)!) / Float((snapshot.progress?.totalUnitCount)!)
+    }
+}
+
+func downloadAudio(audioUrl: String, completion: @escaping(_ audioFileName: String) -> Void) {
+    
+    let audioURL = NSURL(string: audioUrl)
+    
+    let audioFileName = (audioUrl.components(separatedBy: "%").last!).components(separatedBy: "?").first!
+    
+    
+    if fileExistsAtPath(path: audioFileName) {
+        
+        //exist
+        completion(audioFileName)
+        
+    } else {
+        //doesnt exist
+        
+        let downloadQueue = DispatchQueue(label: "audioDownloadQueue")
+        
+        downloadQueue.async {
+            
+            let data = NSData(contentsOf: audioURL! as URL)
+            
+            if data != nil {
+                
+                var docURL = getDocumentsURL()
+                
+                docURL = docURL.appendingPathComponent(audioFileName, isDirectory: false)
+                
+                data!.write(to: docURL, atomically: true)
+                
+                
+                DispatchQueue.main.async {
+                    completion(audioFileName)
+                }
+                
+            } else {
+                //need to call completion and return nil if no file is available
+                
+                DispatchQueue.main.async {
+                    print("no audio in database")
+                }
+            }
+        }
     }
 }
 
