@@ -8,8 +8,11 @@
 
 import UIKit
 import ProgressHUD
+import ImagePicker
 
-class FinishRegistrationVC: UIViewController {
+class FinishRegistrationVC: UIViewController, ImagePickerDelegate {
+   
+    
 
     @IBOutlet weak var firstNameTextField: UITextField!
     @IBOutlet weak var lastNameTextField: UITextField!
@@ -26,13 +29,24 @@ class FinishRegistrationVC: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        print(email!, password!)
+        avatarImageView.isUserInteractionEnabled = true
 
     }
     
     
     
     //MARK: IBActions
+    
+    @IBAction func avatarImageTap(_ sender: Any) {
+        
+        let imagePickerController = ImagePickerController()
+        imagePickerController.delegate = self
+        imagePickerController.imageLimit = 1
+        
+        present(imagePickerController, animated: true, completion: nil)
+        dismissKeyboard()
+    }
+    
     
     @IBAction func cancelButtonPressed(_ sender: Any) {
         cleanTextFields()
@@ -87,7 +101,7 @@ class FinishRegistrationVC: UIViewController {
             }
             
         } else {
-            let avatarData = avatarImage?.jpegData(compressionQuality: 0.7)
+            let avatarData = avatarImage?.jpegData(compressionQuality: 0.2)
             let avatar = avatarData!.base64EncodedString(options: NSData.Base64EncodingOptions(rawValue: 0))
             
             tempDictionary[kAVATAR] = avatar
@@ -138,6 +152,28 @@ class FinishRegistrationVC: UIViewController {
         phoneTextField.text = ""
     }
     
+    //MARK: Image Picker Delegeate
     
+    func wrapperDidPress(_ imagePicker: ImagePickerController, images: [UIImage]) {
+        self.dismiss(animated: true, completion: nil)
+    }
+    
+    func doneButtonDidPress(_ imagePicker: ImagePickerController, images: [UIImage]) {
+        
+        if images.count > 0 {
+            self.avatarImage = images.first!
+            self.avatarImageView.image = self.avatarImage!.circleMasked
+            print("Good images count = \(images.count)")
+        } else {
+            print("Bad images count = \(images.count)")
+        }
+        
+        self.dismiss(animated: true, completion: nil)
+    }
+    
+    func cancelButtonDidPress(_ imagePicker: ImagePickerController) {
+        
+        self.dismiss(animated: true, completion: nil)
+    }
     
 }

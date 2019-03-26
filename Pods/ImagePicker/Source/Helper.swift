@@ -3,10 +3,8 @@ import AVFoundation
 
 struct Helper {
 
-  static var previousOrientation = UIDeviceOrientation.unknown
-
-  static func getTransform(fromDeviceOrientation orientation: UIDeviceOrientation) -> CGAffineTransform {
-    switch orientation {
+  static func rotationTransform() -> CGAffineTransform {
+    switch UIDevice.current.orientation {
     case .landscapeLeft:
       return CGAffineTransform(rotationAngle: CGFloat.pi * 0.5)
     case .landscapeRight:
@@ -18,21 +16,14 @@ struct Helper {
     }
   }
 
-  static func getVideoOrientation(fromDeviceOrientation orientation: UIDeviceOrientation) -> AVCaptureVideoOrientation {
-    switch orientation {
-    case .landscapeLeft:
-      return .landscapeRight
-    case .landscapeRight:
-      return .landscapeLeft
-    case .portraitUpsideDown:
-      return .portraitUpsideDown
-    default:
-      return .portrait
-    }
-  }
-
   static func videoOrientation() -> AVCaptureVideoOrientation {
-    return getVideoOrientation(fromDeviceOrientation: previousOrientation)
+    switch UIDevice.current.orientation {
+    case .portrait: return .portrait
+    case .landscapeLeft: return .landscapeRight
+    case .landscapeRight: return .landscapeLeft
+    case .portraitUpsideDown: return .portraitUpsideDown
+    default: return .portrait
+    }
   }
 
   static func screenSizeForOrientation() -> CGSize {

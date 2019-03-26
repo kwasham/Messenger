@@ -15,7 +15,7 @@ protocol UserTableViewCellDelegate {
 class UserTableViewCell: UITableViewCell {
 
     
-    @IBOutlet weak var avatarImageView: UIImageView!
+    @IBOutlet weak var avatarImageView: UIImageView?
     @IBOutlet weak var fullNameLabel: UILabel!
     
     var indexPath: IndexPath!
@@ -26,8 +26,8 @@ class UserTableViewCell: UITableViewCell {
     override func awakeFromNib() {
         super.awakeFromNib()
         tapGestureRecognizer.addTarget(self, action: #selector(self.avatarTap))
-        avatarImageView.isUserInteractionEnabled = true
-        avatarImageView.addGestureRecognizer(tapGestureRecognizer)
+        avatarImageView?.isUserInteractionEnabled = true
+        avatarImageView?.addGestureRecognizer(tapGestureRecognizer)
     }
 
     override func setSelected(_ selected: Bool, animated: Bool) {
@@ -42,7 +42,7 @@ class UserTableViewCell: UITableViewCell {
         if fUser.avatar != "" {
             imageFromData(pictureData: fUser.avatar) { (avatarImage) in
                 if avatarImage != nil {
-                    self.avatarImageView.image = avatarImage!.circleMasked
+                    self.avatarImageView?.image = avatarImage!.circleMasked
                 }
             }
         }

@@ -28,6 +28,7 @@ class ChatsViewController: UIViewController, UITableViewDelegate, UITableViewDat
         loadRecentChats()
         
         tableView.tableFooterView = UIView()
+        
     }
     
     override func viewWillDisappear(_ animated: Bool) {
@@ -53,9 +54,13 @@ class ChatsViewController: UIViewController, UITableViewDelegate, UITableViewDat
     
     @IBAction func createNewChatButtonPressed(_ sender: Any) {
         
-        let userVC = UIStoryboard.init(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "usersTableView") as! UsersTableViewController
+        selectUserForChat(isGroup: false)
+    }
+    
+    @objc func groupButtonPressed() {
         
-        self.navigationController?.pushViewController(userVC, animated: true)
+        selectUserForChat(isGroup: true)
+        
     }
     
     
@@ -236,11 +241,7 @@ class ChatsViewController: UIViewController, UITableViewDelegate, UITableViewDat
         setTableViewHeader()
     }
     
-    @objc func groupButtonPressed() {
-        
-        print("Hello from button")
-        
-    }
+    
     
     
     //MARK: Recent Chats Cell Delegate
@@ -303,6 +304,16 @@ class ChatsViewController: UIViewController, UITableViewDelegate, UITableViewDat
     }
     
     //MARK: Helper Functions
+    
+    func selectUserForChat(isGroup: Bool) {
+        
+        let contactsVC = UIStoryboard.init(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "contactsView") as! ContactsTableViewController
+        
+        contactsVC.isGroup = isGroup
+        
+        self.navigationController?.pushViewController(contactsVC, animated: true)
+    }
+    
     
     func updatePushMembers(recent: NSDictionary, mute: Bool) {
         

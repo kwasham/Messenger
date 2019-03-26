@@ -1,10 +1,9 @@
 import UIKit
 import Photos
-
 private func < <T: Comparable>(lhs: T?, rhs: T?) -> Bool {
   switch (lhs, rhs) {
-  case let (someLhs?, someRhs?):
-    return someLhs < someRhs
+  case let (l?, r?):
+    return l < r
   case (nil, _?):
     return true
   default:
@@ -41,7 +40,7 @@ open class ImageGalleryView: UIView {
     }()
 
   lazy var collectionViewLayout: UICollectionViewLayout = { [unowned self] in
-    let layout = ImageGalleryLayout(configuration: self.configuration)
+    let layout = ImageGalleryLayout()
     layout.scrollDirection = .horizontal
     layout.minimumInteritemSpacing = self.configuration.cellSpacing
     layout.minimumLineSpacing = 2
@@ -232,7 +231,7 @@ extension ImageGalleryView: UICollectionViewDelegate {
 
     let asset = assets[(indexPath as NSIndexPath).row]
 
-    AssetManager.resolveAsset(asset, size: CGSize(width: 100, height: 100), shouldPreferLowRes: configuration.useLowResolutionPreviewImage) { image in
+    AssetManager.resolveAsset(asset, size: CGSize(width: 100, height: 100)) { image in
       guard image != nil else { return }
 
       if cell.selectedImageView.image != nil {

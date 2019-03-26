@@ -18,7 +18,7 @@ target 'Messenger' do
   pod 'JSQMessagesViewController', '7.3.3'
   pod 'IDMPhotoBrowser'
 
-  pod 'ImagePicker'
+  pod 'ImagePicker', '3.0.0'
 
   # Pods for Messenger
 

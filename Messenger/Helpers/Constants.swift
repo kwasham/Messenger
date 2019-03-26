@@ -24,7 +24,7 @@ public let kFILEREFERENCE = "gs://messenger-3ac9e.appspot.com/"
 public let kONESIGNALAPPID = ""
 public let kSINCHKEY = ""
 public let kSINCHSECRET = ""
-public let kAPPURL = ""
+public let kAPPURL = "www.trimedx.com"
 
 
 

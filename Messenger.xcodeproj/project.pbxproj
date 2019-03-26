@@ -15,6 +15,11 @@
 		160BE13F2246E7A200203396 /* PictureCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 160BE13E2246E7A200203396 /* PictureCollectionViewController.swift */; };
 		160BE1412246E7E700203396 /* PicturesCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 160BE1402246E7E700203396 /* PicturesCollectionViewCell.swift */; };
 		161547C52234359B009CAB48 /* ProfileViewTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 161547C42234359B009CAB48 /* ProfileViewTableViewController.swift */; };
+		1617D7A522480DDE005C5928 /* BlockedUsersViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1617D7A422480DDE005C5928 /* BlockedUsersViewController.swift */; };
+		1617D7A722482BA7005C5928 /* BackgroundCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1617D7A622482BA7005C5928 /* BackgroundCollectionViewController.swift */; };
+		1617D7A922482BCE005C5928 /* BackgroundCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1617D7A822482BCE005C5928 /* BackgroundCollectionViewCell.swift */; };
+		1617D7AB22483465005C5928 /* TandCViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1617D7AA22483465005C5928 /* TandCViewController.swift */; };
+		1617D7AD22483E69005C5928 /* EditProfileTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1617D7AC22483E69005C5928 /* EditProfileTableViewController.swift */; };
 		1621C512222F3978000F04A7 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1621C511222F3978000F04A7 /* AppDelegate.swift */; };
 		1621C517222F3978000F04A7 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1621C515222F3978000F04A7 /* Main.storyboard */; };
 		1621C519222F3978000F04A7 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 1621C518222F3978000F04A7 /* Assets.xcassets */; };
@@ -32,6 +37,8 @@
 		16AA2ECA22321402006BF779 /* UserTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16AA2EC922321402006BF779 /* UserTableViewCell.swift */; };
 		16AA2ECD22321F1F006BF779 /* UsersTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16AA2ECC22321F1F006BF779 /* UsersTableViewController.swift */; };
 		16BDBCC12245AC9E00548A0D /* AudioViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16BDBCC02245AC9E00548A0D /* AudioViewController.swift */; };
+		16E67ACE2248F40300C7D489 /* ContactsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16E67ACD2248F40300C7D489 /* ContactsTableViewController.swift */; };
+		16E67AD02248F8A200C7D489 /* CountryCode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16E67ACF2248F8A100C7D489 /* CountryCode.swift */; };
 		16E996912243271B005EF28A /* Camera.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16E996902243271B005EF28A /* Camera.swift */; };
 		16E9969322432BC9005EF28A /* Downloader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16E9969222432BC9005EF28A /* Downloader.swift */; };
 		16E9969722441E54005EF28A /* PhotoMediaItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16E9969622441E54005EF28A /* PhotoMediaItem.swift */; };
@@ -47,6 +54,11 @@
 		160BE13E2246E7A200203396 /* PictureCollectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PictureCollectionViewController.swift; sourceTree = "<group>"; };
 		160BE1402246E7E700203396 /* PicturesCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PicturesCollectionViewCell.swift; sourceTree = "<group>"; };
 		161547C42234359B009CAB48 /* ProfileViewTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewTableViewController.swift; sourceTree = "<group>"; };
+		1617D7A422480DDE005C5928 /* BlockedUsersViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlockedUsersViewController.swift; sourceTree = "<group>"; };
+		1617D7A622482BA7005C5928 /* BackgroundCollectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BackgroundCollectionViewController.swift; sourceTree = "<group>"; };
+		1617D7A822482BCE005C5928 /* BackgroundCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BackgroundCollectionViewCell.swift; sourceTree = "<group>"; };
+		1617D7AA22483465005C5928 /* TandCViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TandCViewController.swift; sourceTree = "<group>"; };
+		1617D7AC22483E69005C5928 /* EditProfileTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditProfileTableViewController.swift; sourceTree = "<group>"; };
 		1621C50E222F3978000F04A7 /* Messenger.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Messenger.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		1621C511222F3978000F04A7 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		1621C516222F3978000F04A7 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -66,6 +78,8 @@
 		16AA2EC922321402006BF779 /* UserTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserTableViewCell.swift; sourceTree = "<group>"; };
 		16AA2ECC22321F1F006BF779 /* UsersTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UsersTableViewController.swift; sourceTree = "<group>"; };
 		16BDBCC02245AC9E00548A0D /* AudioViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AudioViewController.swift; sourceTree = "<group>"; };
+		16E67ACD2248F40300C7D489 /* ContactsTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContactsTableViewController.swift; sourceTree = "<group>"; };
+		16E67ACF2248F8A100C7D489 /* CountryCode.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CountryCode.swift; sourceTree = "<group>"; };
 		16E996902243271B005EF28A /* Camera.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Camera.swift; path = "../../../ChatAssets/READY CODE/Camera.swift"; sourceTree = "<group>"; };
 		16E9969222432BC9005EF28A /* Downloader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Downloader.swift; sourceTree = "<group>"; };
 		16E9969622441E54005EF28A /* PhotoMediaItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = PhotoMediaItem.swift; path = ../../../Sourcefiles/PhotoMediaItem.swift; sourceTree = "<group>"; };
@@ -114,6 +128,8 @@
 				161547C42234359B009CAB48 /* ProfileViewTableViewController.swift */,
 				160BE13C224683B300203396 /* MapViewController.swift */,
 				160BE13E2246E7A200203396 /* PictureCollectionViewController.swift */,
+				16E67ACD2248F40300C7D489 /* ContactsTableViewController.swift */,
+				16E67ACC2248F3BE00C7D489 /* Settings */,
 			);
 			path = SecondaryViews;
 			sourceTree = "<group>";
@@ -177,6 +193,7 @@
 				16E9969622441E54005EF28A /* PhotoMediaItem.swift */,
 				16E9969A22446723005EF28A /* VideoMessage.swift */,
 				16BDBCC02245AC9E00548A0D /* AudioViewController.swift */,
+				16E67ACF2248F8A100C7D489 /* CountryCode.swift */,
 			);
 			path = Classes;
 			sourceTree = "<group>";
@@ -187,8 +204,20 @@
 				16AA2EC922321402006BF779 /* UserTableViewCell.swift */,
 				167BF9D722358F6E00EB5A62 /* RecentChatsTableViewCell.swift */,
 				160BE1402246E7E700203396 /* PicturesCollectionViewCell.swift */,
+				1617D7A822482BCE005C5928 /* BackgroundCollectionViewCell.swift */,
 			);
 			path = "Custom Cells";
+			sourceTree = "<group>";
+		};
+		16E67ACC2248F3BE00C7D489 /* Settings */ = {
+			isa = PBXGroup;
+			children = (
+				1617D7A422480DDE005C5928 /* BlockedUsersViewController.swift */,
+				1617D7A622482BA7005C5928 /* BackgroundCollectionViewController.swift */,
+				1617D7AA22483465005C5928 /* TandCViewController.swift */,
+				1617D7AC22483E69005C5928 /* EditProfileTableViewController.swift */,
+			);
+			path = Settings;
 			sourceTree = "<group>";
 		};
 		3DAF6D47A00E988676E01214 /* Frameworks */ = {
@@ -370,6 +399,7 @@
 				16048EBE2237354A00EB4675 /* OutgoingMessages.swift in Sources */,
 				1621C512222F3978000F04A7 /* AppDelegate.swift in Sources */,
 				1621C53222308AAB000F04A7 /* FinishRegistrationVC.swift in Sources */,
+				1617D7A722482BA7005C5928 /* BackgroundCollectionViewController.swift in Sources */,
 				160BE13D224683B300203396 /* MapViewController.swift in Sources */,
 				1621C52E222F6766000F04A7 /* FCollectionReference.swift in Sources */,
 				16AA2EC82231F5A5006BF779 /* SettingsTableViewController.swift in Sources */,
@@ -380,12 +410,18 @@
 				160BE13F2246E7A200203396 /* PictureCollectionViewController.swift in Sources */,
 				16E996912243271B005EF28A /* Camera.swift in Sources */,
 				1621C524222F4509000F04A7 /* WelcomeVC.swift in Sources */,
+				1617D7A922482BCE005C5928 /* BackgroundCollectionViewCell.swift in Sources */,
 				1621C52C222F63CD000F04A7 /* Constants.swift in Sources */,
 				16AA2ECD22321F1F006BF779 /* UsersTableViewController.swift in Sources */,
+				1617D7AD22483E69005C5928 /* EditProfileTableViewController.swift in Sources */,
 				16FCA866223680DA0035B90B /* ChatViewController.swift in Sources */,
 				16BDBCC12245AC9E00548A0D /* AudioViewController.swift in Sources */,
 				1621C530222F684A000F04A7 /* HelperFunctions.swift in Sources */,
+				16E67AD02248F8A200C7D489 /* CountryCode.swift in Sources */,
+				1617D7AB22483465005C5928 /* TandCViewController.swift in Sources */,
+				1617D7A522480DDE005C5928 /* BlockedUsersViewController.swift in Sources */,
 				1601009B2237D57600FDB506 /* incomingMessages.swift in Sources */,
+				16E67ACE2248F40300C7D489 /* ContactsTableViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
