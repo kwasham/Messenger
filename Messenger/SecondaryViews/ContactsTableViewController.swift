@@ -8,6 +8,7 @@
 
 import UIKit
 import Contacts
+import CoreTelephony
 import FirebaseFirestore
 import ProgressHUD
 
@@ -69,7 +70,7 @@ class ContactsTableViewController: UITableViewController, UISearchResultsUpdatin
         //to remove empty cell lines
         tableView.tableFooterView = UIView()
         
-        loadUsers()
+        
     }
     
     override func viewDidLoad() {
@@ -84,6 +85,8 @@ class ContactsTableViewController: UITableViewController, UISearchResultsUpdatin
         definesPresentationContext = true
         
         setupButtons()
+        loadUsers()
+        
     }
     
     //MARK: TableViewDataSource
@@ -129,6 +132,7 @@ class ContactsTableViewController: UITableViewController, UISearchResultsUpdatin
             let users = self.allUsersGrouped[sectionTitle]
             
             user = users![indexPath.row]
+            
         }
         
         cell.delegate = self
@@ -164,7 +168,6 @@ class ContactsTableViewController: UITableViewController, UISearchResultsUpdatin
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
-
         tableView.deselectRow(at: indexPath, animated: true)
         
         let sectionTitle = self.sectionTitleList[indexPath.section]
@@ -173,7 +176,6 @@ class ContactsTableViewController: UITableViewController, UISearchResultsUpdatin
         if searchController.isActive && searchController.searchBar.text != "" {
             
             userToChat = filteredMatchedUsers[indexPath.row]
-            
         } else {
             
             let users = self.allUsersGrouped[sectionTitle]
@@ -185,9 +187,7 @@ class ContactsTableViewController: UITableViewController, UISearchResultsUpdatin
             //private chat
             
             if !checkBlockedStatus(withUser: userToChat) {
-                
                 let chatVC = ChatViewController()
-                
                 chatVC.titleName = userToChat.firstname
                 chatVC.memberIds = [FUser.currentId(), userToChat.objectId]
                 chatVC.membersToPush = [FUser.currentId(), userToChat.objectId]
@@ -196,41 +196,39 @@ class ContactsTableViewController: UITableViewController, UISearchResultsUpdatin
                 chatVC.hidesBottomBarWhenPushed = true
                 
                 self.navigationController?.pushViewController(chatVC, animated: true)
-                
             } else {
-                ProgressHUD.showError("This User is not available for chat")
+                ProgressHUD.showError("This User is not Available for Chat")
             }
             
         } else {
-            //group chat
+            //group
             
             //checkmarks
             
             if let cell = tableView.cellForRow(at: indexPath) {
-                
                 if cell.accessoryType == .checkmark {
                     cell.accessoryType = .none
                 } else {
                     cell.accessoryType = .checkmark
                 }
             }
-            
-            //add/remove user from array
-            
-            let selected = memberIdsOfGroupChat.contains(userToChat.objectId)
-            
-            if selected {
-                let objectIndex = memberIdsOfGroupChat.index(of: userToChat.objectId)
-                memberIdsOfGroupChat.remove(at: objectIndex!)
-                membersOfGroupChat.remove(at: objectIndex!)
-            } else {
-                memberIdsOfGroupChat.append(userToChat.objectId)
-                membersOfGroupChat.append(userToChat)
-            }
-            
-            self.navigationItem.rightBarButtonItem?.isEnabled = memberIdsOfGroupChat.count > 0
         }
+        //add/remove user from the array
+        
+        let selected = memberIdsOfGroupChat.contains(userToChat.objectId)
+        
+        if selected {
+            let objectIndex = memberIdsOfGroupChat.index(of: userToChat.objectId)
+            memberIdsOfGroupChat.remove(at: objectIndex!)
+            membersOfGroupChat.remove(at: objectIndex!)
+        } else {
+            memberIdsOfGroupChat.append(userToChat.objectId)
+            membersOfGroupChat.append(userToChat)
+        }
+        self.navigationItem.rightBarButtonItem?.isEnabled = memberIdsOfGroupChat.count > 0
     }
+    
+    
     
     //MARK: IBActions
     
@@ -249,20 +247,24 @@ class ContactsTableViewController: UITableViewController, UISearchResultsUpdatin
         self.present(activityViewController, animated: true, completion: nil)
     }
     
-    @objc func searchNearbyButtonPressed() {
+    
+    @objc func searchButtonPressed() {
         
         let userVC = UIStoryboard.init(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "usersTableView") as! UsersTableViewController
         
         self.navigationController?.pushViewController(userVC, animated: true)
     }
     
+    
     @objc func nextButtonPressed() {
+       
         
-        print("next button pressed")
+        
     }
     
     
-    //MARK: LoadUsers
+    
+    //MARK: Load Users
     
     func loadUsers() {
         
@@ -271,20 +273,17 @@ class ContactsTableViewController: UITableViewController, UISearchResultsUpdatin
         reference(.User).order(by: kFIRSTNAME, descending: false).getDocuments { (snapshot, error) in
             
             guard let snapshot = snapshot else {
-                
                 ProgressHUD.dismiss()
                 return
-                
             }
             
-            if !snapshot.isEmpty {
+            if !snapshot .isEmpty {
                 self.matchedUsers = []
                 self.users.removeAll()
                 
                 for userDictionary in snapshot.documents {
                     
                     let userDictionary = userDictionary.data() as NSDictionary
-                    
                     let fUser = FUser(_dictionary: userDictionary)
                     
                     if fUser.objectId != FUser.currentId() {
@@ -299,7 +298,6 @@ class ContactsTableViewController: UITableViewController, UISearchResultsUpdatin
             ProgressHUD.dismiss()
             self.compareUsers()
         }
-        
     }
     
     
@@ -349,8 +347,6 @@ class ContactsTableViewController: UITableViewController, UISearchResultsUpdatin
                     
                     let contactNumber = removeCountryCode(countryCodeLetters: countryCode!, fullPhoneNumber: phoneNumber!)
                     
-                    print(".....comparing \(contactNumber) and \(phoneNumberToCompareAgainst)")
-                    
                     //compare phoneNumber of contact with given user's phone number
                     if contactNumber == phoneNumberToCompareAgainst {
                         result.append(contact)
@@ -385,13 +381,13 @@ class ContactsTableViewController: UITableViewController, UISearchResultsUpdatin
         let updatedCode = updatePhoneNumber(phoneNumber: countryCodeToRemove!, replacePlusSign: true)
         
         //remove countryCode
-        let replacedNUmber = fullPhoneNumber.replacingOccurrences(of: updatedCode, with: "").components(separatedBy: NSCharacterSet.decimalDigits.inverted).joined(separator: "")
+        let replacedNUmber = fullPhoneNumber.replacingOccurrences(of: updatedCode, with: "1").components(separatedBy: NSCharacterSet.decimalDigits.inverted).joined(separator: "")
         
         
-                print("Code \(countryCodeLetters)")
-                print("full number \(fullPhoneNumber)")
-                print("code to remove \(updatedCode)")
-                print("clean number is \(replacedNUmber)")
+//                print("Code \(countryCodeLetters)")
+//                print("full number \(fullPhoneNumber)")
+//                print("code to remove \(updatedCode)")
+//                print("clean number is \(replacedNUmber)")
         
         return replacedNUmber
     }
@@ -440,64 +436,56 @@ class ContactsTableViewController: UITableViewController, UISearchResultsUpdatin
             
             return user.firstname.lowercased().contains(searchText.lowercased())
         })
+        
         tableView.reloadData()
+        
     }
+    
     
     func updateSearchResults(for searchController: UISearchController) {
-        
         filteredContentForSearchText(searchText: searchController.searchBar.text!)
-        
     }
-
     
-    //MARK: UserTableviewCellDelegate
+
+    //MARK: UserTableView Cell Delegate
     
     func didTapAvatarImage(indexPath: IndexPath) {
-        
-        let profileVC = UIStoryboard.init(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "profileView") as! ProfileViewTableViewController
+        let profileVC = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "profileView") as! ProfileViewTableViewController
         
         var user: FUser!
         
         if searchController.isActive && searchController.searchBar.text != "" {
-            
             user = filteredMatchedUsers[indexPath.row]
-            
         } else {
-            let sectionTitle = self.sectionTitleList[indexPath.row]
+            let sectionTitle = self.sectionTitleList[indexPath.section]
+            
             let users = self.allUsersGrouped[sectionTitle]
+            
             user = users![indexPath.row]
             
         }
         
         profileVC.user = user
         self.navigationController?.pushViewController(profileVC, animated: true)
-        
     }
     
     //MARK: Helpers
     
     func setupButtons() {
-        
         if isGroup {
-            //for group chat
+            // for group chat
             
             let nextButton = UIBarButtonItem(title: "Next", style: .plain, target: self, action: #selector(self.nextButtonPressed))
             self.navigationItem.rightBarButtonItem = nextButton
             self.navigationItem.rightBarButtonItems!.first!.isEnabled = false
-            
             
         } else {
             //for private chat
             
             let inviteButton = UIBarButtonItem(image: UIImage(named: "invite"), style: .plain, target: self, action: #selector(self.inviteButtonPressed))
             
-            let searchButton = UIBarButtonItem(image: UIImage(named: "nearMe"), style: .plain, target: self, action: #selector(self.searchNearbyButtonPressed))
-            
+            let searchButton = UIBarButtonItem(image: UIImage(named: "nearMe"), style: .plain, target: self, action: #selector(self.searchButtonPressed))
             self.navigationItem.rightBarButtonItems = [inviteButton, searchButton]
-            
         }
-        
     }
-
-   
 }
