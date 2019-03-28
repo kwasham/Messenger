@@ -14,6 +14,8 @@
 		160BE13D224683B300203396 /* MapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 160BE13C224683B300203396 /* MapViewController.swift */; };
 		160BE13F2246E7A200203396 /* PictureCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 160BE13E2246E7A200203396 /* PictureCollectionViewController.swift */; };
 		160BE1412246E7E700203396 /* PicturesCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 160BE1402246E7E700203396 /* PicturesCollectionViewCell.swift */; };
+		1613108D224C696F00F4026B /* GroupMemberCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1613108C224C696F00F4026B /* GroupMemberCollectionViewCell.swift */; };
+		1613108F224C6CA400F4026B /* NewGroupViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1613108E224C6CA400F4026B /* NewGroupViewController.swift */; };
 		161547C52234359B009CAB48 /* ProfileViewTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 161547C42234359B009CAB48 /* ProfileViewTableViewController.swift */; };
 		1617D7A522480DDE005C5928 /* BlockedUsersViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1617D7A422480DDE005C5928 /* BlockedUsersViewController.swift */; };
 		1617D7A722482BA7005C5928 /* BackgroundCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1617D7A622482BA7005C5928 /* BackgroundCollectionViewController.swift */; };
@@ -53,6 +55,8 @@
 		160BE13C224683B300203396 /* MapViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapViewController.swift; sourceTree = "<group>"; };
 		160BE13E2246E7A200203396 /* PictureCollectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PictureCollectionViewController.swift; sourceTree = "<group>"; };
 		160BE1402246E7E700203396 /* PicturesCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PicturesCollectionViewCell.swift; sourceTree = "<group>"; };
+		1613108C224C696F00F4026B /* GroupMemberCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroupMemberCollectionViewCell.swift; sourceTree = "<group>"; };
+		1613108E224C6CA400F4026B /* NewGroupViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewGroupViewController.swift; sourceTree = "<group>"; };
 		161547C42234359B009CAB48 /* ProfileViewTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewTableViewController.swift; sourceTree = "<group>"; };
 		1617D7A422480DDE005C5928 /* BlockedUsersViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlockedUsersViewController.swift; sourceTree = "<group>"; };
 		1617D7A622482BA7005C5928 /* BackgroundCollectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BackgroundCollectionViewController.swift; sourceTree = "<group>"; };
@@ -129,6 +133,7 @@
 				160BE13C224683B300203396 /* MapViewController.swift */,
 				160BE13E2246E7A200203396 /* PictureCollectionViewController.swift */,
 				16E67ACD2248F40300C7D489 /* ContactsTableViewController.swift */,
+				1613108E224C6CA400F4026B /* NewGroupViewController.swift */,
 				16E67ACC2248F3BE00C7D489 /* Settings */,
 			);
 			path = SecondaryViews;
@@ -205,6 +210,7 @@
 				167BF9D722358F6E00EB5A62 /* RecentChatsTableViewCell.swift */,
 				160BE1402246E7E700203396 /* PicturesCollectionViewCell.swift */,
 				1617D7A822482BCE005C5928 /* BackgroundCollectionViewCell.swift */,
+				1613108C224C696F00F4026B /* GroupMemberCollectionViewCell.swift */,
 			);
 			path = "Custom Cells";
 			sourceTree = "<group>";
@@ -413,11 +419,13 @@
 				1617D7A922482BCE005C5928 /* BackgroundCollectionViewCell.swift in Sources */,
 				1621C52C222F63CD000F04A7 /* Constants.swift in Sources */,
 				16AA2ECD22321F1F006BF779 /* UsersTableViewController.swift in Sources */,
+				1613108F224C6CA400F4026B /* NewGroupViewController.swift in Sources */,
 				1617D7AD22483E69005C5928 /* EditProfileTableViewController.swift in Sources */,
 				16FCA866223680DA0035B90B /* ChatViewController.swift in Sources */,
 				16BDBCC12245AC9E00548A0D /* AudioViewController.swift in Sources */,
 				1621C530222F684A000F04A7 /* HelperFunctions.swift in Sources */,
 				16E67AD02248F8A200C7D489 /* CountryCode.swift in Sources */,
+				1613108D224C696F00F4026B /* GroupMemberCollectionViewCell.swift in Sources */,
 				1617D7AB22483465005C5928 /* TandCViewController.swift in Sources */,
 				1617D7A522480DDE005C5928 /* BlockedUsersViewController.swift in Sources */,
 				1601009B2237D57600FDB506 /* incomingMessages.swift in Sources */,
