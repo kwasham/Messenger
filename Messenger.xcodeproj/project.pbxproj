@@ -45,6 +45,7 @@
 		16E9969322432BC9005EF28A /* Downloader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16E9969222432BC9005EF28A /* Downloader.swift */; };
 		16E9969722441E54005EF28A /* PhotoMediaItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16E9969622441E54005EF28A /* PhotoMediaItem.swift */; };
 		16E9969B22446723005EF28A /* VideoMessage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16E9969A22446723005EF28A /* VideoMessage.swift */; };
+		16FC47CF224DA51700D9B862 /* Group.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16FC47CE224DA51700D9B862 /* Group.swift */; };
 		16FCA866223680DA0035B90B /* ChatViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16FCA865223680DA0035B90B /* ChatViewController.swift */; };
 /* End PBXBuildFile section */
 
@@ -88,6 +89,7 @@
 		16E9969222432BC9005EF28A /* Downloader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Downloader.swift; sourceTree = "<group>"; };
 		16E9969622441E54005EF28A /* PhotoMediaItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = PhotoMediaItem.swift; path = ../../../Sourcefiles/PhotoMediaItem.swift; sourceTree = "<group>"; };
 		16E9969A22446723005EF28A /* VideoMessage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoMessage.swift; sourceTree = "<group>"; };
+		16FC47CE224DA51700D9B862 /* Group.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Group.swift; sourceTree = "<group>"; };
 		16FCA865223680DA0035B90B /* ChatViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatViewController.swift; sourceTree = "<group>"; };
 		669A2515EEA54790263F6BCD /* Pods-Messenger.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Messenger.release.xcconfig"; path = "Pods/Target Support Files/Pods-Messenger/Pods-Messenger.release.xcconfig"; sourceTree = "<group>"; };
 		B2304AB8E2B9170BB3CC5337 /* Pods_Messenger.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Messenger.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -199,6 +201,7 @@
 				16E9969A22446723005EF28A /* VideoMessage.swift */,
 				16BDBCC02245AC9E00548A0D /* AudioViewController.swift */,
 				16E67ACF2248F8A100C7D489 /* CountryCode.swift */,
+				16FC47CE224DA51700D9B862 /* Group.swift */,
 			);
 			path = Classes;
 			sourceTree = "<group>";
@@ -424,6 +427,7 @@
 				16FCA866223680DA0035B90B /* ChatViewController.swift in Sources */,
 				16BDBCC12245AC9E00548A0D /* AudioViewController.swift in Sources */,
 				1621C530222F684A000F04A7 /* HelperFunctions.swift in Sources */,
+				16FC47CF224DA51700D9B862 /* Group.swift in Sources */,
 				16E67AD02248F8A200C7D489 /* CountryCode.swift in Sources */,
 				1613108D224C696F00F4026B /* GroupMemberCollectionViewCell.swift in Sources */,
 				1617D7AB22483465005C5928 /* TandCViewController.swift in Sources */,

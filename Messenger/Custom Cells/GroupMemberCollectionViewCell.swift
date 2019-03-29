@@ -31,7 +31,7 @@ class GroupMemberCollectionViewCell: UICollectionViewCell {
                 
                 if avatarImage != nil {
                     
-                    self.avatarImageView.image = avatarImage!
+                    self.avatarImageView.image = avatarImage!.circleMasked
                 }
             }
         }

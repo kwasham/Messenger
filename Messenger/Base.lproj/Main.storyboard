@@ -1079,17 +1079,21 @@
         <!--New Group View Controller-->
         <scene sceneID="f7s-Mi-jjH">
             <objects>
-                <viewController id="oTm-p6-WO0" customClass="NewGroupViewController" customModule="Messenger" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="newGroupView" id="oTm-p6-WO0" customClass="NewGroupViewController" customModule="Messenger" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="GSu-Sn-DU2">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="cameraIcon" translatesAutoresizingMaskIntoConstraints="NO" id="FTy-HM-af2">
                                 <rect key="frame" x="10" y="64" width="80" height="80"/>
+                                <gestureRecognizers/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="80" id="28i-6G-HHX"/>
                                     <constraint firstAttribute="height" constant="80" id="qku-zM-rbM"/>
                                 </constraints>
+                                <connections>
+                                    <outletCollection property="gestureRecognizers" destination="LWW-pC-zvd" appends="YES" id="kmj-Tk-f9H"/>
+                                </connections>
                             </imageView>
                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Group Subject" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="gnM-br-uw0">
                                 <rect key="frame" x="108" y="89" width="286" height="30"/>
@@ -1097,13 +1101,13 @@
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="LabelLabelLabelLabelLabelLabelLabelLabelLabelLabelLabel" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="YDD-mz-LDt">
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Please provide a group subject and optional group Icon" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="YDD-mz-LDt">
                                 <rect key="frame" x="108" y="127" width="286" height="36"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                 <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="8UB-lK-nh7">
+                            <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="8UB-lK-nh7">
                                 <rect key="frame" x="10" y="145" width="80" height="18"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="80" id="5N0-yb-sX3"/>
@@ -1111,6 +1115,9 @@
                                 </constraints>
                                 <fontDescription key="fontDescription" type="system" pointSize="12"/>
                                 <state key="normal" title="Edit"/>
+                                <connections>
+                                    <action selector="editIconButtonPressed:" destination="oTm-p6-WO0" eventType="touchUpInside" id="OVR-vX-Abo"/>
+                                </connections>
                             </button>
                             <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="gUV-VL-yEa">
                                 <rect key="frame" x="0.0" y="226" width="414" height="670"/>
@@ -1122,7 +1129,7 @@
                                     <inset key="sectionInset" minX="10" minY="10" maxX="10" maxY="0.0"/>
                                 </collectionViewFlowLayout>
                                 <cells>
-                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" id="jYq-6n-UtH" customClass="GroupMemberCollectionViewCell" customModule="Messenger" customModuleProvider="target">
+                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="Cell" id="jYq-6n-UtH" customClass="GroupMemberCollectionViewCell" customModule="Messenger" customModuleProvider="target">
                                         <rect key="frame" x="10" y="10" width="100" height="100"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO">
@@ -1225,10 +1232,16 @@
                         <outlet property="GroupSubjectTextField" destination="gnM-br-uw0" id="H5q-EH-Bsz"/>
                         <outlet property="collectionView" destination="gUV-VL-yEa" id="UFC-oa-bzn"/>
                         <outlet property="editAvatarButtonOutlet" destination="8UB-lK-nh7" id="0H1-dA-oRB"/>
+                        <outlet property="iconTapGesture" destination="LWW-pC-zvd" id="IRt-Xc-A1O"/>
                         <outlet property="participantsLabel" destination="VY5-d1-3lb" id="kJB-AC-Pfa"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="swr-7o-mk0" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <tapGestureRecognizer id="LWW-pC-zvd">
+                    <connections>
+                        <action selector="groupIconTapped:" destination="oTm-p6-WO0" id="exS-2I-jkw"/>
+                    </connections>
+                </tapGestureRecognizer>
             </objects>
             <point key="canvasLocation" x="7073.913043478261" y="486.83035714285711"/>
         </scene>

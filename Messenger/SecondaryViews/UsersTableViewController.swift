@@ -259,7 +259,9 @@ class UsersTableViewController: UITableViewController, UISearchResultsUpdating, 
                 
                 self.allUsersGrouped[sectionTitle] = []
                 
-                self.sectionTitleList.append(sectionTitle)
+                if !sectionTitleList.contains(sectionTitle) {
+                    self.sectionTitleList.append(sectionTitle)
+                }
                 
             }
             
