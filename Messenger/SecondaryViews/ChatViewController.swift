@@ -105,6 +105,10 @@ class ChatViewController: JSQMessagesViewController, UIImagePickerControllerDele
         
         self.navigationItem.leftBarButtonItems = [UIBarButtonItem(image: UIImage(named: "Back"), style: .plain, target: self, action: #selector(self.backAction))]
         
+        if isGroup! {
+            getCurrentGroup(withId: chatRoomId)
+        }
+        
         collectionView?.collectionViewLayout.incomingAvatarViewSize = CGSize.zero
         collectionView?.collectionViewLayout.outgoingAvatarViewSize = CGSize.zero
         
@@ -781,8 +785,15 @@ class ChatViewController: JSQMessagesViewController, UIImagePickerControllerDele
         self.navigationController?.pushViewController(mediaVC, animated: true)
     }
     
+    
     @objc func showGroup() {
-        print("show group")
+        
+       let groupVC = UIStoryboard.init(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "groupView") as! GroupViewController
+        
+        groupVC.group = group!
+        
+        self.navigationController?.pushViewController(groupVC, animated: true)
+        
     }
     
     @objc func showUserProfile() {
@@ -956,6 +967,21 @@ class ChatViewController: JSQMessagesViewController, UIImagePickerControllerDele
         }
         
         avatarButton.addTarget(self, action: #selector(self.showUserProfile), for: .touchUpInside)
+    }
+    
+    
+    func setUIForGroupChat() {
+        
+        imageFromData(pictureData: (group![kAVATAR] as! String)) { (image) in
+            
+            if image != nil {
+                
+                avatarButton.setImage(image!.circleMasked, for: .normal)
+            }
+        }
+        
+        titleLabel.text = titleName
+        subtitleLabel.text = ""
     }
     
     
@@ -1166,6 +1192,20 @@ class ChatViewController: JSQMessagesViewController, UIImagePickerControllerDele
             updateListener!.remove()
         }
     }
+    
+    
+    func getCurrentGroup(withId: String) {
+        
+        reference(.Group).document(withId).getDocument { (snapshot, error) in
+            guard let snapshot = snapshot else { return }
+            
+            if snapshot.exists {
+                self.group = snapshot.data() as! NSDictionary
+                self.setUIForGroupChat()
+            }
+        }
+    }
+    
     
 }
 
