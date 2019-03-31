@@ -18,8 +18,14 @@ target 'Messenger' do
   pod 'JSQMessagesViewController', '7.3.3'
   pod 'IDMPhotoBrowser'
 
-  pod 'ImagePicker', '3.0.0'
+  pod 'OneSignal'
+  pod 'ImagePicker'
 
   # Pods for Messenger
 
+end
+
+target 'OneSignalNotificationServiceExtension' do
+  use_frameworks!
+  pod 'OneSignal'
 end

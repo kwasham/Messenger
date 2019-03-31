@@ -21,7 +21,7 @@ public let APP_STARTED_NOTIFICATION = "AppStartedNotification"
 
 //IDS and Keys
 public let kFILEREFERENCE = "gs://messenger-3ac9e.appspot.com/"
-public let kONESIGNALAPPID = ""
+public let kONESIGNALAPPID = "76eaceb9-3e7f-4333-bf49-e43de6e79198"
 public let kSINCHKEY = ""
 public let kSINCHSECRET = ""
 public let kAPPURL = "www.trimedx.com"
