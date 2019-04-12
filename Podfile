@@ -20,6 +20,7 @@ target 'Messenger' do
 
   pod 'OneSignal'
   pod 'ImagePicker'
+  pod 'SinchRTC'
 
   # Pods for Messenger
 

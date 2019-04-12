@@ -54,6 +54,8 @@ class IncomingMessage {
     
     //MARK: create message type
     
+    
+    
     func createTextMessage(messageDictionary: NSDictionary, chatRoomId: String) -> JSQMessage {
         
         let name = messageDictionary[kSENDERNAME] as? String
